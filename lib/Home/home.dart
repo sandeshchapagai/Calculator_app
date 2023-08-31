@@ -61,11 +61,24 @@ class _HomeState extends State<Home> {
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
             crossAxisCount: 4,
-            children: <Widget>[
-                 ],
+            children:List.generate(itemCount, (index) {
+              return YourGridItemWidget(data: buttonList[index]);
+            }),
                ),
           ),
       ),
     );
   }
+}
+
+Widget YourGridItemWidget(String Text) {
+  return InkWell(
+    splashColor: Colors.black,
+    onTap: (){},
+    child:Ink(
+      color: Colors.white,
+    ),
+    chil
+  )
+
 }
