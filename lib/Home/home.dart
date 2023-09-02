@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
     {'text': '4', 'color': 'white'},
     {'text': '5', 'color': 'white'},
     {'text': '6', 'color': 'white'},
-    {'text': 'x', 'color': 'default'},
+    {'text': '*', 'color': 'default'},
     {'text': '1', 'color': 'white'},
     {'text': '2', 'color': 'white'}, // Change color to green
     {'text': '3', 'color': 'white'},
