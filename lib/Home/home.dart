@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -20,7 +21,7 @@ class _HomeState extends State<Home> {
     {'text': '7', 'color': 'white'},
     {'text': '8', 'color': 'white'},
     {'text': '9', 'color': 'white'},
-    {'text': '÷', 'color': 'default'},
+    {'text': '/', 'color': 'default'},
     {'text': '4', 'color': 'white'},
     {'text': '5', 'color': 'white'},
     {'text': '6', 'color': 'white'},
@@ -55,8 +56,9 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: MediaQuery.of(context).size.height/3,
               child: Column(children: [
+
               Container(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.only(top: 100,right: 20),
                 alignment: Alignment.centerRight,
                 child:  Text(
                   userInput,
@@ -68,7 +70,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
                 Container(
-                  padding: EdgeInsets.all(20),
+                  padding: EdgeInsets.only(right: 20,top: 60),
                   alignment: Alignment.centerRight,
                   child:  Text(
                     result,
@@ -83,7 +85,7 @@ class _HomeState extends State<Home> {
               ],),
 
             ),
-
+            Divider( color: Colors.black,thickness: 0.1,          ),
             Expanded(
               child: Container(
                 padding: EdgeInsets.all(10),
@@ -149,13 +151,13 @@ class _HomeState extends State<Home> {
 
   handleButton(String text){
     if(text == "C"){
-      userInput ='';
+      userInput ="";
       result ="0";
       return;
     }
-    if(text == "--"){
+    if(text == "?"){
       if(userInput.isNotEmpty){
-        userInput= userInput.substring(0,userInput.length-1);
+        userInput= userInput.substring(0,userInput.length - 1);
       }else{
         return null;
       }
@@ -168,8 +170,12 @@ class _HomeState extends State<Home> {
     }
   if(text == '='){
     result = calculate();
+    userInput = result;
+    if(userInput.endsWith(".0")) {
+      userInput = userInput.replaceAll(".0", "");
+    }
     if(result.endsWith(".0")){
-      result =result.replaceAll(".0", "");
+      result = result.replaceAll(".0", "");
       return;
     }
   }
@@ -177,8 +183,15 @@ class _HomeState extends State<Home> {
 
 
   }
-Strin calculate(){
-    try
+String calculate(){
+    try{
+      var exp = Parser().parse(userInput);
+      var evaluation = exp.evaluate(EvaluationType.REAL,ContextModel());
+      return evaluation.toString();
+    }
+    catch(e){
+      return "Error";
+    }
 }
 }
 
